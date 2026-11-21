@@ -283,7 +283,7 @@ apply();route();
  }
  function read(){Object.entries(fields).forEach(([k,id])=>data[k]=$(id).value.trim())}
  function show(){fill();panel.classList.add("open");panel.setAttribute("aria-hidden","false")}
- function hide(){panel.classList.remove("open");panel.setAttribute("aria-hidden","true");if(location.hash==="#admin")history.replaceState(null,"",location.pathname+location.search)}
+ function hide(){panel.classList.remove("open");panel.setAttribute("aria-hidden","true");if(location.hash.toLowerCase()==="#profile")history.replaceState(null,"",location.pathname+location.search)}
  function exportSite(){
   read();
   let out="<!DOCTYPE html>\n"+document.documentElement.outerHTML;
@@ -297,7 +297,7 @@ apply();route();
  $("admExport").addEventListener("click",exportSite);
  $("admClose").addEventListener("click",hide);
  panel.addEventListener("click",e=>{if(e.target===panel)hide()});
- function route(){if(location.hash.toLowerCase()==="#admin")show()}
+ function route(){if(location.hash.toLowerCase()==="#profile")show()}
  addEventListener("hashchange",route);route();apply();
 })();
 </script>
