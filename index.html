@@ -96,6 +96,82 @@ main{position:relative;z-index:2}
 .pn .chip{color:#0E6E8C}.pn .chip.fill{color:#fff}
 .x{position:fixed;top:calc(18px + env(safe-area-inset-top,0px));inset-inline-start:22px;z-index:85}
 @media(max-width:800px){.pg{grid-template-columns:1fr}.pimg{position:static}.zone{padding:14vh 6vw 8vh}.meter{inset-inline-end:8px}.mline{height:14vh}.fl:nth-child(even){margin-top:30px}.fls{gap:22px}.logo{font-size:14px;letter-spacing:.14em}.lu{display:none}.chip{padding:7px 13px}}
+
+/* Mobile usability pass: compact navigation, readable content, and touch-safe controls. */
+html,body{max-width:100%;overflow-x:clip}
+button,a,input,textarea,select{-webkit-tap-highlight-color:transparent}
+button,.chip{touch-action:manipulation}
+img{max-width:100%}
+@media(max-width:800px){
+  header.top{padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;gap:8px}
+  .logo{font-size:13px;letter-spacing:.12em;white-space:nowrap}
+  .tl{gap:6px;flex-shrink:0}
+  .tl .chip{font-size:11px;padding:8px 11px;min-height:38px}
+  .zone{min-height:100vh;min-height:100svh;padding:clamp(104px,15vh,140px) 6vw 90px}
+  .hero h1{font-size:clamp(44px,11.5vw,76px);line-height:1.02;max-width:11ch;overflow-wrap:anywhere}
+  .hero p{max-width:48ch;font-size:16px;line-height:1.65}
+  .names{font-size:14px;letter-spacing:.12em;gap:4px 10px}
+  .fls{gap:16px 12px;margin-top:34px}
+  .fl,.fl.lg{width:clamp(112px,38vw,172px);max-width:44vw}
+  .fl:nth-child(even),.fl:nth-child(3n){margin-top:0}
+  .ph{border-width:4px;border-radius:16px}
+  .fl em{font-size:12px;line-height:1.4}
+  .meter{top:auto;bottom:10px;inset-inline-end:12px;transform:none;flex-direction:row;gap:8px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.72);backdrop-filter:blur(8px)}
+  .meter b{font-size:24px}
+  .meter small{font-size:9px}
+  .mline{width:34px;height:2px}
+  .mline i{left:0;top:50%}
+  .chat{padding:15px;border-radius:18px;margin-top:20px}
+  .b{max-width:94%;padding:10px 12px;font-size:15px}
+  .opts{gap:8px}
+  .opts .chip{min-height:42px}
+  .foot{line-height:2;overflow-wrap:anywhere}
+  .foot a{display:inline-block;margin:2px 5px}
+  .proj{padding:calc(72px + env(safe-area-inset-top,0px)) 16px calc(28px + env(safe-area-inset-bottom,0px))}
+  .pg{grid-template-columns:minmax(0,1fr);gap:22px;width:100%}
+  .pimg{position:static;min-width:0}
+  .pimg img{width:100%;max-height:48svh;object-fit:contain;border-width:5px}
+  .pinfo{min-width:0;overflow-wrap:anywhere}
+  .pinfo h2{font-size:clamp(38px,10vw,60px);margin-bottom:16px}
+  .pal{flex-wrap:wrap}
+  .pal i{width:40px;height:40px}
+  .pn{gap:8px;margin-top:20px}
+  .pn .chip,.tabs .chip{min-height:42px}
+  .x{top:calc(12px + env(safe-area-inset-top,0px));inset-inline-start:14px}
+  #adminPanel{padding:12px;align-items:start;overflow-y:auto}
+  #adminPanel.open{display:flex;justify-content:center;align-items:flex-start}
+  #adminPanel .admin-card{max-height:calc(100svh - 24px);overflow-y:auto;margin:auto 0;padding:20px 16px;border-radius:16px}
+  #adminPanel input,#adminPanel textarea{font-size:16px}
+  #adminPanel .admin-actions{display:grid;grid-template-columns:1fr}
+  #adminPanel button{min-height:44px}
+  #sj-admin{padding:calc(8px + env(safe-area-inset-top,0px)) 8px calc(8px + env(safe-area-inset-bottom,0px))}
+  #sj-admin .sj-admin-inner{width:100%;max-width:100%;margin:0 auto;padding:18px 14px;border-radius:14px}
+  #sj-admin .sj-top{align-items:flex-start}
+  #sj-admin .sj-form{gap:14px;padding:14px}
+  #sj-admin input,#sj-admin textarea,#sj-admin select{font-size:16px;min-height:44px}
+  #sj-admin textarea{min-height:100px}
+  #sj-admin .sj-row{align-items:flex-start;flex-wrap:wrap}
+  #sj-admin .sj-row .sj-row-copy{flex:1 1 calc(100% - 100px)}
+  #sj-admin .sj-row .sj-actions{width:100%;margin-inline-start:88px}
+  #sj-admin .sj-actions button{min-height:42px}
+  #sj-admin .sj-image-preview{align-items:flex-start}
+  #sj-admin .sj-image-preview img{max-width:100%;max-height:220px}
+  #sj-project-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+}
+@media(max-width:380px){
+  header.top{padding-inline:10px}
+  .logo{font-size:11px;letter-spacing:.08em}
+  .tl .chip{padding:7px 9px;font-size:10px}
+  .hero h1{font-size:clamp(40px,11vw,54px)}
+  .zone{padding-inline:5vw}
+  .fl,.fl.lg{width:clamp(104px,39vw,145px)}
+  #sj-admin .sj-row .sj-actions{margin-inline-start:0}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
 </style>
 </head>
 <body>
