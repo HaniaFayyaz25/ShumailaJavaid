@@ -249,7 +249,7 @@ const safeProfileText=value=>String(value||"").replace(/[&<>"]/g,ch=>({"&":"&amp
 if(dbProfile.heading)T.en.h1=safeProfileText(dbProfile.heading);
 if(dbProfile.subtitle)T.en.sub=safeProfileText(dbProfile.subtitle);
 if(dbProfile.about)T.en.about=safeProfileText(dbProfile.about);
-const Z=[[1,["logo"],"lg"],[2,["poster"],""],[3,["quote"],""],[4,["pack"],""],[5,["other"],""]];
+const Z=[[1,["logo"],"lg"],[2,["poster"],""],[3,["quote"],""],[4,["pack"],""]];
 let L="en";
 const $=s=>document.querySelector(s),t=()=>T[L];
 /* zones */
@@ -268,7 +268,7 @@ const ST=[[0,[230,247,250]],[.18,[168,224,236]],[.34,[79,180,210]],[.5,[28,127,1
 function col(p){p=Math.max(0,Math.min(1,p));for(let i=1;i<ST.length;i++)if(p<=ST[i][0]){const a=ST[i-1],b=ST[i],k=(p-a[0])/(b[0]-a[0]);return a[1].map((v,j)=>Math.round(v+(b[1][j]-v)*k))}return ST[5][1]}
 const zs=[...document.querySelectorAll(".zone")];
 function tick(){
- const mx=document.documentElement.scrollHeight-innerHeight,p=mx>0?scrollY/mx:0;
+ const diveEnd=$("#brief").offsetTop+$("#brief").offsetHeight-innerHeight;const p=diveEnd>0?Math.max(0,Math.min(1,scrollY/diveEnd)):0;
  $("#sea").style.background="linear-gradient(180deg,rgb("+col(p)+"),rgb("+col(p+.22)+"))";
  document.documentElement.style.setProperty("--fg",p>.4?"#EAF8FB":"#0B3B4A");
  $("#rays").style.opacity=Math.max(0,1-p*3.5);
