@@ -187,6 +187,7 @@ img{max-width:100%}
 <div class="foot"><a href="mailto:jshumaila718@gmail.com">jshumaila718@gmail.com</a>·<a href="https://www.linkedin.com/in/shumaila-javed-209a1743b" target="_blank" rel="noopener">LinkedIn</a>·<a href="https://www.behance.net/shumailajaved2" target="_blank" rel="noopener">Behance</a><br><span data-i="foot"></span></div></section>
 </main>
 <div class="proj" id="proj"></div><div class="wash" id="wash"></div>
+<script>window.shumailaSupabaseReady=new Promise((resolve,reject)=>{window.__resolveShumailaSupabase=resolve;window.__shumailaSupabaseTimer=setTimeout(()=>reject(new Error("Supabase client did not initialize. Please refresh the page.")),15000);});</script>
 <script type="module">
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -194,6 +195,7 @@ const SUPABASE_URL="https://trubprgucucswmbfglwn.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY="sb_publishable_9e9Etu2e8tbvwjSjyuCnQg_yAkCt7s7";
 const supabase=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
 window.shumailaSupabase=supabase;
+window.__resolveShumailaSupabase(supabase);clearTimeout(window.__shumailaSupabaseTimer);
 let dbProjects=[],dbProfile={};
 try{
  const [{data:projectRows,error:projectsError},{data:profileRow,error:profileError}]=await Promise.all([
@@ -353,8 +355,8 @@ document.querySelectorAll('a[href*="behance.net"]').forEach(a=>a.href=profileBeh
 <div class="sj-top"><h3>Saved projects</h3><div class="sj-actions"><button id="sj-export" class="sj-light">Export backup</button><button id="sj-import" class="sj-light">Import backup</button><input id="sj-import-file" type="file" accept="application/json" hidden></div></div><div id="sj-list" class="sj-list"></div><p id="sj-project-status" class="sj-status" role="status"></p>
 </div></div>
 <script type="module">
-(()=>{
-const supabase=window.shumailaSupabase;if(!supabase){console.error("Supabase client did not initialize.");return;}
+const supabase=await window.shumailaSupabaseReady.catch(error=>{console.error(error);const panel=document.getElementById("sj-admin");if(panel){panel.style.display="block";panel.textContent="The portfolio manager could not connect. Please refresh and try again.";}return null;});
+if(supabase){(()=>{
 const $=id=>document.getElementById(id),panel=$("sj-admin"),login=$("sj-login"),manager=$("sj-manager"),adminEmail="jshumaila718@gmail.com";
 const categoryLabels={logo:"Logos & Branding",poster:"Posters & Promotions",quote:"Quotes, Menus & Flyers",pack:"Packaging & Book Covers",other:"Other"};
 let projects=[],profile={},removeCurrentImage=false,selectedPreviewUrl="";
@@ -385,7 +387,7 @@ $("sj-list").addEventListener("click",async e=>{const edit=e.target.closest("[da
 $("sj-export").onclick=()=>{const blob=new Blob([JSON.stringify({profile,projects},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="shumaila-portfolio-backup.json";a.click();URL.revokeObjectURL(url);};
 $("sj-import").onclick=()=>$("sj-import-file").click();
 $("sj-import-file").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const parsed=JSON.parse(await f.text()),rows=Array.isArray(parsed)?parsed:parsed.projects;if(!Array.isArray(rows)||!rows.every(p=>p&&typeof p.id==="string"&&typeof p.title==="string"))throw Error("Invalid backup format");const {error}=await supabase.from("portfolio_projects").upsert(rows.map(p=>({id:p.id,title:p.title,category:categoryLabels[p.category]?p.category:"other",description:p.description||"",legacy_index:Number.isInteger(p.legacy_index)?p.legacy_index:null,image_path:p.image_path||null,image_removed:!!p.image_removed,is_visible:p.is_visible!==false,sort_order:Number(p.sort_order)||0})));if(error)throw error;await loadProjects();status("sj-project-status","Backup imported.");}catch(err){status("sj-project-status","Import failed: "+err.message);}e.target.value="";});
-})();
+})();}
 </script>
 </body>
 </html>
