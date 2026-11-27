@@ -1,14 +1,12 @@
 SHUMAILA JAVED PORTFOLIO
 
-1. Upload index.html to the root of the GitHub repository.
-2. Deploy the repository on Vercel.
-3. Open https://YOUR-PORTFOLIO-URL/#admin to open the editor.
-4. Make edits, click Preview changes, then Download updated website.
-5. Replace index.html in GitHub with the downloaded file and redeploy.
+Live website: https://shumailajavaid.vercel.app
 
-Behance is already linked to https://www.behance.net/shumailajaved2.
+PORTFOLIO MANAGER
+1. Open https://shumailajavaid.vercel.app/#admin
+2. Select “Send secure sign-in link”.
+3. Open the sign-in email sent to jshumaila718@gmail.com on the same device/browser.
+4. The Portfolio Manager will open. Use the Projects form to add a title, category, description and image, then select “Add project”.
+5. Changes are saved directly to the Supabase database and appear on the public portfolio. No GitHub edits or manual redeployment are needed.
 
-IMPORTANT:
-This is a static-site editor. It is intentionally easy to use and does not require a database,
-but it is not a secure authenticated CMS. The #admin fragment is a hidden entry point, not
-access control. Publishing edits requires replacing index.html and redeploying.
+The manager also supports editing and deleting existing projects, profile updates, and backup export/import. Access is restricted to the authorized admin email.
